@@ -5784,7 +5784,7 @@
 
             // Show the modal
             modal.classList.remove('hidden');
-            console.log('Partial exit modal shown with data:', exits);
+            console.log('Partial exit modal shown with data:', trade);
 
                 // Replace feather icons
                 feather.replace();
@@ -12601,12 +12601,14 @@
             // Helper function to create valid timestamp
             const createTimestamp = (date, time) => {
                 console.log('createTimestamp called with:', { date, time });
-                if (!date || !time || date.trim() === '' || time.trim() === '') {
-                    console.log('Missing date or time, returning null');
+                if (!date || String(date).trim() === '') {
+                    console.log('Missing date, returning null');
                     return null;
                 }
+                // If time is missing, default to 00:00; otherwise use provided time
+                const safeTime = (!time || String(time).trim() === '') ? '00:00' : String(time).trim();
                 try {
-                    const timestamp = `${date}T${time}:00`;
+                    const timestamp = `${date}T${safeTime}:00`;
                     console.log('Created timestamp:', timestamp);
                     // Validate the timestamp
                     const dateObj = new Date(timestamp);
